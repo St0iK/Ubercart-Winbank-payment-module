@@ -1,0 +1,90 @@
+<?php
+
+// $Id$
+
+
+/**
+* Implamentation of hook_schema().
+*/
+function uc_winbank_3dsecure_test_cases_schema(){
+	$schema = array();
+	
+	$schema['uc_winbank_3dsecure_test_cases'] = array(
+  'description' => t('Winbank Test Cases'),
+  'fields' => array(
+    'id' => array(
+      'description' => t('TODO: please describe this field!'),
+      'type' => 'serial',
+      'not null' => TRUE,
+    ),
+    'cc_type' => array(
+      'description' => t('Credit Card Type'),
+      'type' => 'varchar',
+      'length' => '255',
+      'not null' => TRUE,
+    ),
+    'orderNumber' => array(
+      'description' => t('Order Number'),
+      'type' => 'varchar',
+      'length' => '255',
+      'not null' => TRUE,
+    ),
+    'supportReferenceID' => array(
+      'description' => t('Support Reference ID'),
+      'type' => 'varchar',
+      'length' => '255',
+      'not null' => TRUE,
+    ),
+    'cardHolderName' => array(
+      'description' => t('cardHolderName -> Test Case Name'),
+      'type' => 'varchar',
+      'length' => '255',
+      'not null' => TRUE,
+    ),
+  ),
+  'primary key' => array('id'),
+);
+	return $schema;
+}
+
+/**
+* Implementation of hook_install().
+*	Δημιουργία του table uc_winbank_3dsecure_test_cases , 
+*	εκεί κρατάμε τα αποτελέσματα των Test Cases για να στα στείλουμε στην Τράπεζα Πειραιώς.
+*/
+function uc_winbank_3dsecure_install(){
+	drupal_install_schema('uc_winbank_3dsecure_test_cases');
+}
+
+/**
+* Implementation of hook_uninstall().
+*	Deleting variables and drop table 
+*/
+function uc_winbank_3dsecure_uninstall() {
+	
+	// Centinel 
+	variable_del('uc_centinel_processor_id');
+	variable_del('uc_centinel_merchant_id');
+	variable_del('uc_centitel_transaction_pwd');
+	variable_del('uc_centinel_maps_url');
+	variable_del('uc_centinel_demo_url');
+	variable_del('uc_bank_store_key');
+	variable_del('uc_bank_user_code');
+	variable_del('uc_bank_password');
+	variable_del('uc_bank_password');
+
+	// Winbank
+	variable_del('uc_winbank_request_type');
+	variable_del('uc_winbank_acquirer_id');
+	variable_del('uc_winbank_merchant_id');
+	variable_del('uc_winbank_pos_id');
+	variable_del('uc_winbank_channel_type');
+	variable_del('uc_winbank_user');
+	variable_del('uc_winbank_password');
+	variable_del('uc_winbank_currency_code');
+	variable_del('uc_winbank_transaction_url');
+	
+	// Drop uc_winbank_3dsecure_test_cases table
+	drupal_uninstall_schema('uc_winbank_3dsecure_test_cases');
+	
+}
