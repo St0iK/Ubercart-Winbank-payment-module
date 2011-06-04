@@ -1,8 +1,0 @@
-; $Id: stoik.info,v 1.0 2011/01/27 Exp $
-name = Winbank 3dSecure
-description = Receive payments using the Winbank Web Service  method.
-core = 6.x
-version = "6.x-1.0"
-core = "6.x"
-package = Ubercart - payment
-dependencies[] = uc_payment
