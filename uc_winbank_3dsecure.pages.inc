@@ -30,8 +30,11 @@ function uc_winbank_3dsecure_response(){
 	$uc_winbank_password = md5($uc_winbank_password);
 	$uc_winbank_currency_code = variable_get('uc_winbank_currency_code','');
 	$uc_winbank_transaction_url = variable_get('uc_winbank_transaction_url','');
+<<<<<<< HEAD
 	
 	//$demo_mode = 
+=======
+>>>>>>> origin/master
 	drupal_set_title("Πληροφορίες συναλλαγής");
 	
 	/*
@@ -70,9 +73,12 @@ function uc_winbank_3dsecure_response(){
 	$Centinel_CAVV = $centinelClient->getValue("Cavv");
 	$Centinel_ECI = $centinelClient->getValue("EciFlag");
 	$Centinel_XID = $centinelClient->getValue("Xid");
+<<<<<<< HEAD
 	
 	
 	//echo "$Centinel_ErrorDesc -- $Centinel_ErrorNo";
+=======
+>>>>>>> origin/master
 												
 	/**
 	*	Παίρνουμε τις μεταβλητές της συναλλαγής απο τα SESSIONS
@@ -96,8 +102,11 @@ function uc_winbank_3dsecure_response(){
 	//echo $cc_number;
 	
 	$order_id = $_SESSION['3d_winbank']['order_id'];
+<<<<<<< HEAD
 	
 
+=======
+>>>>>>> origin/master
 	drupal_get_messages('error');
 	
 	if($Centinel_ErrorNo == '0' AND $Centinel_SignatureVerification == "Y" && $Centinel_PAResStatus != "N" && $Centinel_PAResStatus != "U"){
@@ -208,6 +217,7 @@ function uc_winbank_3dsecure_response(){
 		$responceCode = $result->ProcessTransactionResponse->TransactionResponse->Body->TransactionInfo->ResponseCode;
 		$supportReferenceID = $result->ProcessTransactionResponse->TransactionResponse->Header->SupportReferenceID;
 		
+<<<<<<< HEAD
 		/*
 		echo "StatusFlag-> $statusFlag | desc -> $resultDescription<br/>$resultCode<br/>$responceCode";
 		
@@ -219,6 +229,8 @@ function uc_winbank_3dsecure_response(){
 		*/
 		
 		
+=======
+>>>>>>> origin/master
 		// Παιρνάμε τις τιμές στο table uc_winbank_3dsecure_test_cases
 		db_query("INSERT INTO uc_winbank_3dsecure_test_cases (cc_type, orderNumber, supportReferenceID,cardHolderName) VALUES 
 		('$cc_type','$order_number','$supportReferenceID','$orderDesc')");
@@ -228,7 +240,11 @@ function uc_winbank_3dsecure_response(){
 		if($resultCode == '0' AND $responceCode == '00' AND $statusFlag == "Success"){
 		
 		//Complete Reservation insert required values		
+<<<<<<< HEAD
 		$comment = t('Η συναλλαγή σας ολοκληρώθηκε με επιτυχία.');
+=======
+		$comment = "Η αγορά ολοκληρώθηκε με επιτυχία.";
+>>>>>>> origin/master
 	    uc_payment_enter($order_id, 'uc_winbank_3dsecure', $amount, 0, NULL, $comment);
 		uc_order_comment_save($order_id, 0, t('Order created through website.'), 'admin');
 		$_SESSION['do_complete'] = TRUE;
@@ -236,28 +252,44 @@ function uc_winbank_3dsecure_response(){
 		
 		}else if($resultCode == '0' AND $responceCode == '12' AND $statusFlag == "Failure"){
 			// Declined
+<<<<<<< HEAD
 			$message = t('Η συναλλαγή σας απορρίφθηκε απο την τράπεζα');		   
+=======
+			$message = 'Η συναλλαγή σας απορρίφθηκε απο την τράπεζα';		   
+>>>>>>> origin/master
 		    drupal_set_message($message,'error');
 		    $_SESSION['do_review'] = TRUE;
 		    drupal_goto('cart/checkout/review');	
 		    
 		}else if($resultCode == '0' AND $responceCode == '11') {	
 			// Double Charge
+<<<<<<< HEAD
 			$message = t('Απόπειρα διπλοχρέωσης συναλλαγής. Η συναλλαγή ακυρώθηκε.');		   
+=======
+			$message = 'Απόπειρα διπλοχρέωσης συναλλαγής. Η συναλλαγή ακυρώθηκε.';		   
+>>>>>>> origin/master
 		    drupal_set_message($message,'error');
 		    $_SESSION['do_review'] = TRUE;
 		    drupal_goto('cart/checkout/review');
 		    
 		}else if($resultCode == '501'){
 			// Technical Problem
+<<<<<<< HEAD
 			$message = t('Αδυναμία εκτέλεσης συναλλαγής λόγω (τεχνικού) προβλήματος επικοινωνίας με το σύστημα επεξεργασίας συναλλαγών.');		   
+=======
+			$message = 'Αδυναμία εκτέλεσης συναλλαγής λόγω (τεχνικού) προβλήματος επικοινωνίας με το σύστημα επεξεργασίας συναλλαγών.';		   
+>>>>>>> origin/master
 		    drupal_set_message($message,'error');
 		    $_SESSION['do_review'] = TRUE;
 		    drupal_goto('cart/checkout/review');
 		    
 		}else if($resultCode == '981'){
 			// Wrong Card Type
+<<<<<<< HEAD
 			$message = t('Αδυναμία εκτέλεσης της συναλλαγής λόγω λανθασμένων στοιχείων κάρτας ή κάρτας που δεν υποστηρίζεται απο το σύστημα');		   
+=======
+			$message = 'Αδυναμία εκτέλεσης της συναλλαγής λόγω λανθασμένων στοιχείων κάρτας ή κάρτας που δεν υποστηρίζεται απο το σύστημα';		   
+>>>>>>> origin/master
 		    drupal_set_message($message,'error');
 		    $_SESSION['do_review'] = TRUE;
 		    drupal_goto('cart/checkout/review');
@@ -265,7 +297,11 @@ function uc_winbank_3dsecure_response(){
 		 
 		}else{
 				 
+<<<<<<< HEAD
 			$message = t('Αδυναμία εκτέλεσης της συναλλαγής.');		   
+=======
+			$message = 'Αδυναμία εκτέλεσης της συναλλαγής.';		   
+>>>>>>> origin/master
 		    drupal_set_message($message,'error');
 		    $_SESSION['do_review'] = TRUE;
 		    drupal_goto('cart/checkout/review');
@@ -290,16 +326,27 @@ function uc_winbank_3dsecure_response(){
 		
 		unset($_SESSION['3d_winbank']);
 		
+<<<<<<< HEAD
 		$message = t('Αδυναμία εκτέλεσης της συναλλαγής.');		   
+=======
+		$message = 'Αδυναμία εκτέλεσης της συναλλαγής.-';		   
+>>>>>>> origin/master
 		drupal_set_message($message,'error');
 		$_SESSION['do_review'] = TRUE;
 		drupal_goto('cart/checkout/review');	
 	}
+<<<<<<< HEAD
 /*
 echo "<br/> <br/><br/><br/><br/><br/>$resultCode -- $responceCode -- $statusFlag || RESULT DESCRIPTION -> $resultDescription<br/><br/><br/><br/><br/>";
 $output = "<br/> <br/><br/><br/><br/><br/>$resultCode -- $responceCode -- $statusFlag || RESULT DESCRIPTION -> $resultDescription<br/><br/><br/><br/><br/>";	
 return $output;	
 */
+=======
+//echo "<br/> <br/><br/><br/><br/><br/>$resultCode -- $responceCode -- $statusFlag || RESULT DESCRIPTION -> $resultDescription<br/><br/><br/><br/><br/>";
+//$output = "<br/> <br/><br/><br/><br/><br/>$resultCode -- $responceCode -- $statusFlag || RESULT DESCRIPTION -> $resultDescription<br/><br/><br/><br/><br/>";	
+//return $output;	
+
+>>>>>>> origin/master
 }
 
 
