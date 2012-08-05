@@ -5,6 +5,7 @@
  * Winbank 3DSecure menu items.
  * jimstoik13
  * dafuq~
+ * adding a bug fix
  */
 
 function uc_winbank_3dsecure_response(){
